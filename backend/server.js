@@ -11,7 +11,7 @@ import forgotPasswordRouter from "./routes/forgotPassword.js";
 dotenv.config();
 
 // Validate required environment variables
-const requiredEnvVars = ["MONGO_URI", "PORT", "JWT_SECRET", "GMAIL_USERNAME", "GMAIL_PASSWORD"];
+const requiredEnvVars = ["MONGO_URI", "PORT", "JWT_SECRET", "GMAIL_USERNAME", "GMAIL_PASSWORD", "FRONTEND_URL"];
 requiredEnvVars.forEach((varName) => {
     if (!process.env[varName]) {
         throw new Error(`Missing required environment variable: ${varName}`);
@@ -27,7 +27,7 @@ mongoose.set("strictQuery", true);
 app.use(morgan("combined")); // Log requests
 app.use(express.json());
 app.use(cors({
-    origin: process.env.CORS_ORIGIN || "*", // Set your allowed origin(s)
+    origin: process.env.FRONTEND_URL, // Use FRONTEND_URL from .env
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true, // Enable credentials if needed
 }));
